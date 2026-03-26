@@ -1,29 +1,60 @@
-name: Publish to npm
+# Publishes this n8n community node package to npm on every version tag push.
+#
+# Starting May 1 2026, n8n requires all community nodes to be published via
+# GitHub Actions with npm provenance statements. This workflow satisfies that
+# requirement.
+#
+# ─── PREREQUISITES ─────────────────────────────────────────────────────────────
+# @n8n/node-cli ≥ 0.23.0 is required. Check with: npm list @n8n/node-cli
+#
+# ─── ONE-TIME SETUP ────────────────────────────────────────────────────────────
+#
+# Option A — OIDC Trusted Publishing (recommended, no long-lived secrets):
+#   1. Log in to npmjs.com and open your package's settings.
+#   2. Under "Publish access" → "Trusted Publishers", click "Add a publisher".
+#   3. Select GitHub Actions and fill in:
+#        Repository owner: solutionwise
+#        Repository name:  n8n-nodes-bugsmash
+#        Workflow name:    publish.yml
+#        Environment:      (leave blank)
+#   4. Leave NPM_TOKEN unset — GitHub OIDC token is used instead.
+#
+# Option B — npm Automation Token (current setup):
+#   NPM_TOKEN is set in repo secrets (Settings → Secrets → Actions).
+#
+# ─── TAG CONVENTION ────────────────────────────────────────────────────────────
+# Triggers on tags matching "v*.*.*" e.g. v1.0.0, v1.2.3
+#
+# ─── RELEASE PROCESS ───────────────────────────────────────────────────────────
+# To publish a new version:
+#   git tag v1.0.1
+#   git push origin v1.0.1
+# This triggers the workflow to build, lint, and publish to npm.
+
+name: Publish
 
 on:
   push:
     tags:
-      - 'v*'
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      - 'v*.*.*'
 
 jobs:
   publish:
+    name: Publish to npm
     runs-on: ubuntu-latest
+
     permissions:
+      id-token: write   # required for npm provenance (OIDC)
       contents: read
-      id-token: write   # required for npm provenance attestation
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: 'lts/*'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm install --ignore-scripts
@@ -35,6 +66,8 @@ jobs:
         run: npm run lint
 
       - name: Publish with provenance
-        run: npm publish --access public --provenance
+        run: |
+          [ -n "$NPM_TOKEN" ] && npm config set //registry.npmjs.org/:_authToken "$NPM_TOKEN"
+          npm publish --access public --provenance
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
