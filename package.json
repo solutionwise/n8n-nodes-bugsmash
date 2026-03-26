@@ -1,0 +1,61 @@
+{
+  "name": "n8n-nodes-bugsmash",
+  "version": "0.1.0",
+  "description": "n8n community node for the BugSmash trigger integration",
+  "license": "MIT",
+  "homepage": "https://github.com/solutionwise/n8n-nodes-bugsmash",
+  "keywords": [
+    "n8n-community-node-package"
+  ],
+  "author": {
+    "name": "solutionwise"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/solutionwise/n8n-nodes-bugsmash.git"
+  },
+  "scripts": {
+    "build": "n8n-node build",
+    "build:watch": "tsc --watch",
+    "dev": "n8n-node dev",
+    "lint": "n8n-node lint",
+    "lint:fix": "n8n-node lint --fix",
+    "release": "n8n-node release",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist/nodes/BugSmashTrigger",
+    "dist/credentials/BugSmashApi.credentials.js",
+    "dist/credentials/BugSmashApi.credentials.d.ts",
+    "dist/credentials/bugsmash.png",
+    "dist/credentials/bugsmash.dark.png",
+    "dist/credentials/bugsmash.svg",
+    "dist/nodes/BugSmashTrigger/bugsmash.png",
+    "dist/nodes/BugSmashTrigger/bugsmash.dark.png",
+    "dist/nodes/BugSmashTrigger/bugsmash.svg"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "strict": true,
+    "credentials": [
+      "dist/credentials/BugSmashApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/BugSmashTrigger/BugSmashTrigger.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@n8n/node-cli": "*",
+    "eslint": "9.32.0",
+    "n8n-workflow": "*",
+    "prettier": "3.6.2",
+    "release-it": "^19.0.4",
+    "typescript": "5.9.2"
+  },
+  "overrides": {
+    "change-case": "4.1.2"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}
