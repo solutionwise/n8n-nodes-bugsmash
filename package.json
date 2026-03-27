@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-bugsmash",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "n8n community node for the BugSmash trigger integration",
   "license": "MIT",
   "homepage": "https://github.com/solutionwise/n8n-nodes-bugsmash",
@@ -8,7 +8,8 @@
     "n8n-community-node-package"
   ],
   "author": {
-    "name": "solutionwise"
+    "name": "solutionwise",
+    "email": "developers.solutionwise@gmail.com"
   },
   "repository": {
     "type": "git",
