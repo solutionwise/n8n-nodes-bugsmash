@@ -13,8 +13,6 @@ export class BugSmashApi implements ICredentialType {
 
 	icon: Icon = 'file:bugsmash.svg';
 
-	documentationUrl = 'https://api.bugsmash.io/';
-
 	properties: INodeProperties[] = [
 		{
 			displayName: 'API Key',
@@ -27,7 +25,7 @@ export class BugSmashApi implements ICredentialType {
 			displayName: 'Base URL',
 			name: 'baseUrl',
 			type: 'string',
-			default: 'https://api.bugsmash.io/',
+			default: 'https://api.bugsmash.io',
 			description: 'The base URL of the BugSmash API',
 		},
 	];

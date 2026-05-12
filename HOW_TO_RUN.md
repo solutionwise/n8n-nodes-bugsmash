@@ -48,4 +48,6 @@ If you want external webhook delivery while testing locally:
 ngrok http 5680
 ```
 
+$env:WEBHOOK_URL = "https://your-ngrok-url.ngrok-free.app/"; .\start_n8n_test.bat
+
 Then restart n8n with `WEBHOOK_URL` set to your ngrok HTTPS URL before running `.\start_n8n_test.bat`.

@@ -16,7 +16,7 @@ mkdir "%TARGET_DIR%\dist"
 copy /Y "%ROOT_DIR%\package.json" "%TARGET_DIR%\package.json" >nul
 copy /Y "%ROOT_DIR%\README.md" "%TARGET_DIR%\README.md" >nul
 copy /Y "%ROOT_DIR%\LICENSE.md" "%TARGET_DIR%\LICENSE.md" >nul
-xcopy "%ROOT_DIR%\dist" "%TARGET_DIR%\dist" /E /I /Y >nul
+robocopy "%ROOT_DIR%\dist" "%TARGET_DIR%\dist" /E /NFL /NDL /NJH /NJS /nc /ns /np
 
 echo Clean test package ready at:
 echo %TARGET_DIR%

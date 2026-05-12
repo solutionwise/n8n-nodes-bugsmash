@@ -21,4 +21,10 @@ echo Using custom extensions from:
 echo %N8N_CUSTOM_EXTENSIONS%
 echo.
 
-npx n8n start --port 5680
+set "N8N_PORT=5680"
+if exist ".env" (
+    for /f "usebackq tokens=1,* delims==" %%A in (".env") do (
+        set "%%A=%%B"
+    )
+)
+npx n8n start

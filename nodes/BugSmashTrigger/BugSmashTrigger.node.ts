@@ -22,7 +22,6 @@ export class BugSmashTrigger implements INodeType {
 		defaults: {
 			name: 'BugSmash Trigger',
 		},
-		usableAsTool: true,
 		inputs: [],
 		outputs: ['main'],
 		credentials: [
@@ -61,11 +60,6 @@ export class BugSmashTrigger implements INodeType {
 						value: 'new_comment',
 						description: 'Triggers when a new comment is created',
 					},
-					// {
-					// 	name: 'Priority Changed',
-					// 	value: 'priority_changed',
-					// 	description: 'Triggers when a comment priority changes',
-					// },
 					{
 						name: 'Status Changed',
 						value: 'status_changed',
@@ -121,7 +115,27 @@ export class BugSmashTrigger implements INodeType {
 	webhookMethods = {
 		default: {
 			async checkExists(this: IHookFunctions): Promise<boolean> {
-				return false;
+				const webhookData = this.getWorkflowStaticData('node');
+				const webhookId = webhookData.webhookId;
+
+				if (!webhookId) {
+					return false;
+				}
+
+				const credentials = await this.getCredentials('bugSmashApi');
+				const baseUrl = credentials.baseUrl as string;
+
+				try {
+					await this.helpers.httpRequestWithAuthentication.call(this, 'bugSmashApi', {
+						method: 'GET',
+						url: `${baseUrl}/api/v2/n8n/subscription/${webhookId}`,
+					} as IHttpRequestOptions);
+					return true;
+				} catch {
+					// Subscription no longer exists on the remote side.
+					delete webhookData.webhookId;
+					return false;
+				}
 			},
 			async create(this: IHookFunctions): Promise<boolean> {
 				const webhookUrl = this.getNodeWebhookUrl('default') as string;

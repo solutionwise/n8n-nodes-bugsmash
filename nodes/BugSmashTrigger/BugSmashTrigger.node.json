@@ -1,12 +1,12 @@
 {
-	"node": "n8n-nodes-bugsmash-trigger",
+	"node": "n8n-nodes-bugsmash.BugSmashTrigger",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
-	"categories": ["Communication", "Developer Tools"],
+	"categories": ["Communication", "Development"],
 	"resources": {
 		"primaryDocumentation": [
 			{
-				"url": "https://api.bugsmash.io/"
+				"url": "https://docs.bugsmash.io"
 			}
 		]
 	}
