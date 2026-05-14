@@ -10,6 +10,7 @@ import type {
 	IHttpRequestOptions,
 } from 'n8n-workflow';
 
+// eslint-disable-next-line @n8n/community-nodes/node-usable-as-tool
 export class BugSmashTrigger implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'BugSmash Trigger',
@@ -19,7 +20,6 @@ export class BugSmashTrigger implements INodeType {
 		version: 1,
 		subtitle: '={{$parameter["event"]}}',
 		description: 'Starts the workflow when BugSmash events occur',
-		usableAsTool: true,
 		defaults: {
 			name: 'BugSmash Trigger',
 		},
