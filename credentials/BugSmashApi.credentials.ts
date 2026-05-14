@@ -9,6 +9,8 @@ import type {
 export class BugSmashApi implements ICredentialType {
 	name = 'bugSmashApi';
 
+	documentationUrl = 'https://docs.bugsmash.io';
+
 	displayName = 'BugSmash API';
 
 	icon: Icon = 'file:bugsmash.svg';

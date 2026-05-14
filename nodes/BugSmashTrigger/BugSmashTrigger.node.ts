@@ -19,6 +19,7 @@ export class BugSmashTrigger implements INodeType {
 		version: 1,
 		subtitle: '={{$parameter["event"]}}',
 		description: 'Starts the workflow when BugSmash events occur',
+		usableAsTool: true,
 		defaults: {
 			name: 'BugSmash Trigger',
 		},
@@ -26,6 +27,7 @@ export class BugSmashTrigger implements INodeType {
 		outputs: ['main'],
 		credentials: [
 			{
+				// eslint-disable-next-line @n8n/community-nodes/no-credential-reuse
 				name: 'bugSmashApi',
 				required: true,
 			},
